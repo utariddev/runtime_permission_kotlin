@@ -2,10 +2,11 @@ package org.utarid.runtimepermisson
 
 import android.Manifest
 import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import org.utarid.runtimepermisson.databinding.ActivityMainBinding
 
@@ -57,6 +58,13 @@ class MainActivity : AppCompatActivity() {
                     // Permission is granted. Continue the action or workflow in your app.
                 } else {
                     // user denied permission
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) {
+                        requestPerm()
+                    } else {
+                        //can not show permission dialog because of user click 'do not ask again'
+
+                        Toast.makeText(this, "can not show permission dialog", Toast.LENGTH_LONG).show()
+                    }
                 }
                 return
             }
